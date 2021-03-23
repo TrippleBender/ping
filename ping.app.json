@@ -1,0 +1,66 @@
+{
+  "name": "ping",
+
+  "modules":
+  [
+    "ping:ping_components"
+  ],
+
+  "graph":
+  {
+    "nodes":
+    [
+      {
+        "name": "ping",
+        "components":
+        [
+          {
+            "name": "message_ledger",
+            "type": "isaac::alice::MessageLedger"
+          },
+          {
+            "name": "ping",
+            "type": "ping"
+          }
+        ]
+      },
+      {
+        "name": "pong",
+        "components":
+        [
+          {
+            "name": "message_ledger",
+            "type": "isaac::alice::MessageLedger"
+          },
+          {
+            "name": "pong",
+            "type": "pong"
+          }
+        ]
+      }
+    ],
+    "edges":
+    [
+      {
+        "source": "ping/ping/ping_str",
+        "target": "pong/pong/trigger"
+      },
+      {
+        "source": "ping/ping/numb_tx",
+        "target": "pong/pong/numb_rx"
+      }
+    ]
+  },
+
+  "config":
+  {
+    "ping":
+    {
+      "ping":
+      {
+        "message": "My own hello world!",
+        "tick_period" : "0.5s"
+      }
+    }
+  }
+}
